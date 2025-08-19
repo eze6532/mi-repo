@@ -1,27 +1,30 @@
 import React from "react";
 
 interface RegistroFormProps {
-  nombre: string;
+  nombreCompleto: string;
   correo: string;
-  password: string;
+  contraseña: string;
   mostrarPassword: boolean;
-  setNombre: (value: string) => void;
+  setNombreCompleto: (value: string) => void;
   setCorreo: (value: string) => void;
-  setPassword: (value: string) => void;
+  setContraseña: (value: string) => void;
   togglePassword: () => void;
   handleSubmit: (e: React.FormEvent) => void;
+
+
 }
 
 const RegistroForm: React.FC<RegistroFormProps> = ({
-  nombre,
+  nombreCompleto,
   correo,
-  password,
+  contraseña,
   mostrarPassword,
-  setNombre,
+  setNombreCompleto,
   setCorreo,
-  setPassword,
+  setContraseña,
   togglePassword,
   handleSubmit,
+
 }) => {
   return (
     <form onSubmit={handleSubmit} >
@@ -33,8 +36,8 @@ const RegistroForm: React.FC<RegistroFormProps> = ({
         <input
           type="text"
           placeholder="Ej: Juan Pérez"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          value={nombreCompleto}
+          onChange={(e) => setNombreCompleto(e.target.value)}
           required
         />
       </div>
@@ -58,8 +61,8 @@ const RegistroForm: React.FC<RegistroFormProps> = ({
           <input
             type={mostrarPassword ? "text" : "password"}
             placeholder="********"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={contraseña}
+            onChange={(e) => setContraseña(e.target.value)}
             required
           />
           <button
@@ -71,9 +74,9 @@ const RegistroForm: React.FC<RegistroFormProps> = ({
         </div>
       </div>
 
-      {/* Botón */}
+      {/* Boton next a campos de menor priodidad*/}
       <button type="submit">
-        Registrarse
+        Siguiente
       </button>
 
       <p>
