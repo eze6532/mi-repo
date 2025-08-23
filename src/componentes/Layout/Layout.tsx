@@ -1,14 +1,11 @@
-// src/componentes/Layout.tsx
 import { Outlet } from 'react-router-dom';
-import Navbar from '../Navbar/Navbar';
+import Header from '../Header/Header';
 
 export default function Layout() {
   return (
     <>
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
+      <Header/>
+      <Outlet/>
     </>
   );
 }
