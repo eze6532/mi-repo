@@ -12,14 +12,14 @@ const apiAuth ={
         registrar: async (
             nombreCompleto: string, 
             correo: string, 
-            constraseña: string, 
+            contraseña: string, 
             edad: number, 
             genero?: Genero,
             descripcion?: string,
             habitos?:HabitosOpciones[],
             preferencia?:PreferenciaOpciones[]) => {
             try {
-            const datos: any = { nombreCompleto, correo, constraseña, edad };
+            const datos: any = { nombreCompleto, correo, contraseña, edad };
             if (genero) datos.genero = genero;
             if (descripcion) datos.descripcion = descripcion;
             if (habitos) datos.habitos= habitos;
@@ -40,11 +40,11 @@ const apiAuth ={
             throw new Error("Error de conexión");
             }
         },
-        login: async (correo: string, contraseña: string) => {
+        login: async (correo: string, contrasena: string) => {
             try {
             const result = await axiosApi.post<{ token: string, rol: string }>(
-                import.meta.env.URL_AUTH + "/login",
-                { correo, contraseña }
+                import.meta.env.VITE_URL_AUTH + "/login",
+                { correo, contrasena }
             );
 
             if (result.status === 200) return result.data;
