@@ -51,7 +51,8 @@ const RegistroPage: React.FC = () => {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("rol", data.rol);
-
+      localStorage.setItem("id", data.id);
+      
       navigate("/home");
     } catch (err: any) {
       console.error(err);

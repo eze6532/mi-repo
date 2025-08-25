@@ -2,7 +2,7 @@ import { handleApiError } from "../helpers/handleApiError";
 import type { Genero, HabitosOpciones, PreferenciaOpciones, } from "../modelos/Usuario";
 import axiosApi from "./_api";
 
-
+export const getUserId = () => localStorage.getItem("id");
 export const getUserRol = () => localStorage.getItem("rol");
 export const isLoggedIn = () => !!localStorage.getItem("token");
 
@@ -26,7 +26,7 @@ const apiAuth ={
             if (preferencia) datos.preferencia = preferencia;
 
             console.log(datos);
-            const result = await axiosApi.post<{ token: string; rol: string }>(
+            const result = await axiosApi.post<{ token: string; rol: string; id:string }>(
                 import.meta.env.VITE_URL_USER,
                 datos
             );

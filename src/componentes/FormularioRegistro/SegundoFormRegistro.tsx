@@ -1,5 +1,5 @@
 import type React from "react";
-import type { Genero, HabitosOpciones, PreferenciaOpciones } from "../../modelos/Usuario";
+import { opcionesHabitos, opcionesPreferencias, type Genero, type HabitosOpciones, type PreferenciaOpciones } from "../../modelos/Usuario";
 
 
 interface SegundoFormRegistroProps{
@@ -30,27 +30,7 @@ const SegundoFormRegistro: React.FC<SegundoFormRegistroProps>=({
     handleSubmit,
 })=>{
     
-    const opcionesHabitos: HabitosOpciones[] = [
-        "Fumador",
-        "Tengo mascotas",
-        "Escucho música fuerte",
-        "Me acuesto tarde",
-        "Trabajo desde casa",
-        "Recibo visitas seguido",
-        "Cocino en casa",
-        "Hago ejercicio en casa",
-    ];
-
-    const opcionesPreferencias: PreferenciaOpciones[] = [
-        "No me molesta que fumen",
-        "No me molestan las mascotas",
-        "Ok con música fuerte",
-        "Ok con horarios nocturnos",
-        "Ok con visitas frecuentes",
-        "Prefiero alguien ordenado",
-        "Prefiero alguien tranquilo",
-        "Prefiero alguien social",
-    ];
+   
 
     const toggleOpcionPreferencia = (opcion: PreferenciaOpciones) => {
         const nuevasOpciones = preferencia.includes(opcion)
