@@ -1,5 +1,6 @@
 import React from "react";
 
+
 interface PrimerFormRegistroProps {
   nombreCompleto: string;
   correo: string;
@@ -27,8 +28,8 @@ const PrimerFormRegistro: React.FC<PrimerFormRegistroProps> = ({
 
 }) => {
   return (
-    <form onSubmit={handleSubmit} >
-      <h2 >Crear cuenta</h2>
+    <form onSubmit={handleSubmit} className="form-container">
+      <h2 className="form-title">Crear cuenta</h2>
 
       {/* Nombre */}
       <div >

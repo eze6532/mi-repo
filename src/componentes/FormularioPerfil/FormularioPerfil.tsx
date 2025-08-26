@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { opcionesHabitos, opcionesPreferencias, type UsuarioPerfil } from "../../modelos/Usuario";
 
+
 interface FormularioPerfilProps {
   perfil: UsuarioPerfil;
   onGuardar: (m: UsuarioPerfil) => void;
   onCancelar: () => void;
 }
 
-const FormularioPerfil: React.FC<FormularioPerfilProps> = ({
-  perfil,
-  onGuardar,
-  onCancelar,
-}) => {
+const FormularioPerfil: React.FC<FormularioPerfilProps> = ({perfil, onGuardar, onCancelar}) => {
+  
   const perfilDefault: UsuarioPerfil = {
     nombreCompleto: "",
     edad: 0,
@@ -24,17 +22,20 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({
   const [formData, setFormData] = useState<UsuarioPerfil>(perfil ?? perfilDefault);
 
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: name === "edad" ? parseInt(value) : value,
-    }));
-  };
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: name === "edad" ? parseInt(value) : value,
+  }));
+};
+
 
   const toggleCheckbox = (nombreCampo: "habitos" | "preferencias", valor: string) => {
     setFormData(prev => {
-      const actual = prev[nombreCampo];
+      const actual = prev[nombreCampo] as string[];
       const nuevo = actual!.includes(valor)
         ? actual!.filter(item => item !== valor)
         : [...actual!, valor];
@@ -52,7 +53,7 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({
   };
 
   return (
-    <form onSubmit={handleGuardar}>
+    <form onSubmit={handleGuardar} className="form-container">
       <div>
         <label>Nombre</label>
         <input
@@ -72,17 +73,23 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({
           value={formData.edad}
           onChange={handleChange}
           required
+          min={18}
+          max={100}
         />
       </div>
 
       <div>
         <label>Género</label>
-        <input
-          type="text"
+        <select
           name="genero"
           value={formData.genero}
           onChange={handleChange}
-        />
+          required
+        >
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Prefiero no decir">Prefiero no decir</option>
+        </select>
       </div>
 
       <div>
@@ -101,7 +108,7 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({
             <label>
               <input
                 type="checkbox"
-                checked={formData.habitos?formData.habitos.includes(habito):habitos.includes(opcion)}
+                checked={formData.habitos!.includes(habito)}
                 onChange={() => toggleCheckbox("habitos", habito)}
               />
               {habito}
@@ -127,10 +134,8 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({
       </div>
 
       <div>
-        <button type="submit">Guardar</button>
-        <button type="button" onClick={onCancelar}>
-          Cancelar
-        </button>
+        <button type="submit" onClick={handleGuardar}>Guardar</button>
+        <button type="button" onClick={onCancelar}>Cancelar</button>
       </div>
     </form>
   );
