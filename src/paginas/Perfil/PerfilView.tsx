@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router-dom";
 import type { UsuarioPerfil } from "../../modelos/Usuario";
 import { useEffect, useState } from "react";
 import { getUserId } from "../../api/api.auth";
 import api from "../../api/api.compartoDeptoAR";
 import FormularioPerfil from "../../componentes/FormularioPerfil/FormularioPerfil";
+import { useUsuario } from "../../contexts/UsuarioContext";
 
 
-
-const Perfil =()=>{
+/*
+const PerfilView =()=>{
 
     const [perfil, setPerfil] = useState<UsuarioPerfil>();
-    const navigate = useNavigate();
+
  
  
     useEffect(() => {
@@ -24,7 +24,7 @@ const Perfil =()=>{
         }};
 
         fetchData();
-        */
+        *
        const usuario1: UsuarioPerfil = {
            nombreCompleto: "Usuario01",
            edad: 19,
@@ -44,14 +44,36 @@ const Perfil =()=>{
             Cargando...
             </div>
             :
-            <FormularioPerfil
-            perfil={perfil}
-            onGuardar={()=>{console.log('se guardo, que emocion')}}
-             onCancelar={()=>navigate('/')}
-            />
+            <FormularioPerfil 
+                perfil={perfil} 
+                modo="view" />
+
         }
            </>
             
 }
+*/
+const PerfilView = () => {
+  const { perfil, setPerfil } = useUsuario();
 
-export default Perfil;
+  useEffect(() => {
+    const usuario1: UsuarioPerfil = {
+      nombreCompleto: "Usuario01",
+      edad: 19,
+      genero: "Masculino",
+      descripcion: "Hola mundo, soy el usuario01 y estoy muuuuuy feliz de estar aca",
+      habitos: ["Cocino en casa", "Fumador", "Tengo mascotas"],
+      preferencias: ["No me molesta que fumen", "Ok con horarios nocturnos", "Prefiero alguien tranquilo"],
+    };
+    setPerfil(usuario1);
+  }, []);
+
+  if (!perfil) return <div>Cargando...</div>;
+
+  return (
+    <FormularioPerfil perfil={perfil} modo="view" />
+  );
+};
+
+
+export default PerfilView;
