@@ -61,44 +61,44 @@ const RegistroPage = ({ onSwitch }: { onSwitch: () => void }) => {
     }
   };
 
-
+  const handleCancelarPaso2 = () => {
+    setPaso(1); 
+  };
   return (
-    <div className={`container ${paso === 2 ? 'active' : ''}`}>
-  {paso === 1 && (
-    <div className="animation">
-      <PrimerFormRegistro
-        nombreCompleto={nombreCompleto}
-        correo={correo}
-        contraseña={contraseña}
-        mostrarPassword={mostrarPassword}
-        setNombreCompleto={setNombreCompleto}
-        setCorreo={setCorreo}
-        setContraseña={setContraseña}
-        togglePassword={togglePassword}
-        handleSubmit={handlePaso1Submit}
-        onSwitch={onSwitch}
-      />
+    <div className={`registro-pasos-container paso-${paso}`}>
+ 
+      <div className="registro-step paso-1">
+        <PrimerFormRegistro
+          nombreCompleto={nombreCompleto}
+          correo={correo}
+          contraseña={contraseña}
+          mostrarPassword={mostrarPassword}
+          setNombreCompleto={setNombreCompleto}
+          setCorreo={setCorreo}
+          setContraseña={setContraseña}
+          togglePassword={togglePassword}
+          handleSubmit={handlePaso1Submit}
+          onSwitch={onSwitch}
+        />
+      </div>
+  
+      <div className="registro-step paso-2">
+        <SegundoFormRegistro
+          edad={edad}
+          genero={genero}
+          descripcion={descripcion}
+          habitos={habitos}
+          preferencia={preferencia}
+          setEdad={setEdad}
+          setGenero={setGenero}
+          setDescripcion={setDescripcion}
+          setHabitos={setHabitos}
+          setPreferencia={setPreferencia}
+          handleSubmit={handleRegistroFinal}
+          onCancelar={handleCancelarPaso2}
+        />
+      </div>
     </div>
-  )}
-  {paso === 2 && (
-    <div className="animation">
-      <SegundoFormRegistro
-        edad={edad}
-        genero={genero}
-        descripcion={descripcion}
-        habitos={habitos}
-        preferencia={preferencia}
-        setEdad={setEdad}
-        setGenero={setGenero}
-        setDescripcion={setDescripcion}
-        setHabitos={setHabitos}
-        setPreferencia={setPreferencia}
-        handleSubmit={handleRegistroFinal}
-      />
-    </div>
-  )}
-</div>
-
   );
 };
 

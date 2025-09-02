@@ -14,6 +14,7 @@ interface SegundoFormRegistroProps{
     setHabitos: (value: HabitosOpciones[]) => void;
     setPreferencia: (value: PreferenciaOpciones[]) =>void;
     handleSubmit:(e: React.FormEvent) => void;
+    onCancelar: () => void;
 }
 
 const SegundoFormRegistro: React.FC<SegundoFormRegistroProps>=({
@@ -28,6 +29,7 @@ const SegundoFormRegistro: React.FC<SegundoFormRegistroProps>=({
     setHabitos,
     setPreferencia,
     handleSubmit,
+    onCancelar,
 })=>{
     
    
@@ -46,7 +48,7 @@ const SegundoFormRegistro: React.FC<SegundoFormRegistroProps>=({
         setHabitos(nuevasOpciones);
     };
     return(
-        <div>
+        <div className="form-container-segundo">
             <h2>Datos faltantes</h2>
             <form onSubmit={handleSubmit} >
                 {/*Edad*/}
@@ -121,6 +123,9 @@ const SegundoFormRegistro: React.FC<SegundoFormRegistroProps>=({
                    
                 <button type="submit">
                     Registrarse
+                </button>
+                <button type="button" onClick={onCancelar}>
+                    Cancelar
                 </button>
             </form>
         </div>
