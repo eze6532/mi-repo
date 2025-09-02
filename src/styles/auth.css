@@ -1,0 +1,141 @@
+/* ===== Body & fondo general ===== */
+body {
+  background-color: #8000b9; /* violeta */
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+}
+
+
+/* ===== Contenedor principal de auth (slider o panel) ===== */
+.auth-wrapper {
+  width: 100%;
+  max-width: 800px;
+
+  margin: 5rem auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.auth-slider {
+  display: flex;
+  width: 200%; /* el doble porque hay 2 paneles */
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.auth-panel {
+  width: 50%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.auth-slider.show-login {
+  transform: translateX(0);
+}
+
+.auth-slider.show-register {
+  transform: translateX(-50%);
+}
+
+/* ===== Contenedor tipo grid para login y registro lado a lado ===== */
+.auth-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* dos columnas iguales */
+  gap: 2rem; /* espacio entre login y registro */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: start;
+}
+
+.auth-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive: apilar columnas en móvil */
+@media (max-width: 768px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Formulario individual (login/registro) ===== */
+.form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+  margin: 0 auto; /* centrar en mobile */
+}
+
+.form-title {
+  margin-bottom: 1.5rem;
+  color: #5a00b0;
+  font-size: 1.5rem;
+}
+
+.form-container label {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #5a00b0;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.form-container button:hover {
+  background: #7d00e6;
+}
+
+.toggle-password {
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  color: #5a00b0;
+  cursor: pointer;
+}
+
+.form-container p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.form-container a {
+  color: #5a00b0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-container a:hover {
+  text-decoration: underline;
+}

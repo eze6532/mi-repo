@@ -1,0 +1,32 @@
+import { useState } from "react";
+import LoginPage from "./Login/LoginPage";
+import RegistroPage from "./Registro/RegistroPage";
+import '../../styles/auth.css'
+
+
+
+const AuthPage = () => {
+  const [isLogin, setIsLogin] = useState(true);
+
+  const handleSwitch = () => setIsLogin(!isLogin);
+
+  return (
+    <div className="auth-wrapper">
+      <div className={`auth-slider ${isLogin ? "show-login" : "show-register"}`}>
+        {/* PANEL LOGIN */}
+        <div className="auth-panel login">
+          <LoginPage onSwitch={handleSwitch} />
+        </div>
+
+        {/* PANEL REGISTRO */}
+        <div className="auth-panel register">
+          <RegistroPage onSwitch={handleSwitch} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AuthPage;
+
+

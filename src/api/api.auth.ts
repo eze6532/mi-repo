@@ -1,12 +1,12 @@
 import { handleApiError } from "../helpers/handleApiError";
 import type { Genero, HabitosOpciones, PreferenciaOpciones, } from "../modelos/Usuario";
 import axiosApi from "./_api";
-//export const getUserRol = () => localStorage.getItem("rol");
-//export const isLoggedIn = () => !!localStorage.getItem("token");
+export const getUserRol = () => localStorage.getItem("rol");
+export const isLoggedIn = () => !!localStorage.getItem("token");
 
 export const getUserId = () => localStorage.getItem("id");
-export const getUserRol =()=>"USER_ROLE";
-export const isLoggedIn = () => "00000";
+//export const getUserRol =()=>"USER_ROLE";
+//export const isLoggedIn = () => "00000";
 
 
 const apiAuth ={
