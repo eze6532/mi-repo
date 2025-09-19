@@ -11,21 +11,22 @@ const AuthPage = () => {
   const handleSwitch = () => setIsLogin(!isLogin);
 
   return (
-    <div className="auth-wrapper">
-      <div className={`auth-slider ${isLogin ? "show-login" : "show-register"}`}>
-        {/* PANEL LOGIN */}
-        <div className="auth-panel login">
-          <LoginPage onSwitch={handleSwitch} />
-        </div>
+    <div className="auth-page">
+      <div className="auth-wrapper">
+        <div className={`auth-slider ${isLogin ? "show-login" : "show-register"}`}>
+          <div className="auth-panel login">
+            <LoginPage onSwitch={handleSwitch} />
+          </div>
 
-        {/* PANEL REGISTRO */}
-        <div className="auth-panel register">
-          <RegistroPage onSwitch={handleSwitch} />
+          <div className="auth-panel register">
+            <RegistroPage onSwitch={handleSwitch} />
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default AuthPage;
 

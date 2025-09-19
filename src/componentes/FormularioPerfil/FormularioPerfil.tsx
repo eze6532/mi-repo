@@ -57,8 +57,16 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({ perfil, modo, onSub
       onSubmit(formData);
     }
   };
-
+function cerrarSesion() {
+        localStorage.removeItem("token");
+        navigate("/login");
+    }
+    
+    
   return (
+    <>
+    <button onClick={cerrarSesion}>Cerrar sesión</button>
+    
     <form className="form-container" onSubmit={handleSubmit}>
       <div>
         <label>Nombre</label>
@@ -170,6 +178,7 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({ perfil, modo, onSub
         )}
       </div>
     </form>
+    </>
   );
 };
 

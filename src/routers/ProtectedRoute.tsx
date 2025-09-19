@@ -1,29 +1,25 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "../paginas/Home/HomePage";
-import Perfil from "../paginas/Perfil/PerfilView";
+import PerfilView from "../paginas/Perfil/PerfilView";
 import Publicacion from "../paginas/Publicacion/Publicacion";
 import CrearPublicacion from "../paginas/Publicacion/CrearPublicacion";
 import AdminPage from "../paginas/Admin/AdminPage";
-import { getUserRol } from "../api/api.auth";
+import { useUsuario } from "../contexts/UsuarioContext";
 
 const ProtectedRouter = () => {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const { isLoggedIn, userRol } = useUsuario();
 
   if (!isLoggedIn) {
-  return <Navigate to="/auth" replace />;
-}
-
-  const userRol = getUserRol();
+    return <Navigate to="/auth" replace />;
+  }
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="mi-perfil" element={<Perfil />} />
-
       {userRol === "USER_ROLE" && (
         <>
           <Route path="publicacion" element={<Publicacion />} />
           <Route path="crear-publicacion" element={<CrearPublicacion />} />
+          <Route path="mi-perfil" element={<PerfilView />} />
         </>
       )}
 

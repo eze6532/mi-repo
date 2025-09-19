@@ -1,7 +1,5 @@
 import type { UsuarioPerfil } from "../../modelos/Usuario";
-import { useEffect, useState } from "react";
-import { getUserId } from "../../api/api.auth";
-import api from "../../api/api.compartoDeptoAR";
+import { useEffect } from "react";
 import FormularioPerfil from "../../componentes/FormularioPerfil/FormularioPerfil";
 import { useUsuario } from "../../contexts/UsuarioContext";
 

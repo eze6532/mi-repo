@@ -5,11 +5,11 @@ body {
   margin: 0;
   font-family: var(--fuente-principal);
   background: linear-gradient(135deg, var(--violeta-secundario), var(--violeta-fondo));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  min-height: 100vh;   
+  display: block;    
+  overflow-x: hidden;
 }
+
 
 /* Transiciones entre páginas */
 .page-transition {
@@ -21,7 +21,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 /* === Botón Cancelar === */
-button {
+.btn-cancelar {
   width: 100%;
   padding: 0.8rem;
   background: transparent;
@@ -33,7 +33,7 @@ button {
   transition: all 0.3s ease;
 }
 
-button:hover {
+.btn-cancelar:hover {
   background: var(--violeta-secundario);
   color: white;
 }

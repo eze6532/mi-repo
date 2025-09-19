@@ -121,10 +121,10 @@ const SegundoFormRegistro: React.FC<SegundoFormRegistroProps>=({
                     ))}
                     </div>
                    
-                <button type="submit">
+                <button className="submit">
                     Registrarse
                 </button>
-                <button type="button" onClick={onCancelar}>
+                <button className="btn-cancelar" onClick={onCancelar}>
                     Cancelar
                 </button>
             </form>
