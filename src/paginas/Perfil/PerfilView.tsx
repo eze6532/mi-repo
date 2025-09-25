@@ -14,27 +14,28 @@ const PerfilView = () => {
       setLoading(true); 
       if (!perfil && id) {
         try {
-          
-          const datos = await api.usuario.perfil(id);
+          const datos = await api.usuario.perfil();
           setPerfil(datos); 
         } catch (err) {
           console.error("Error al cargar el perfil:", err);
         } finally {
           setLoading(false);
         }
-      } 
-        setLoading(false);
+      }
     };
 
     cargarPerfil();
-  }, []);
+  }, [perfil]);
 
   if (loading) {
-    return <div>Cargando perfil...</div>;
+    return  <div>Cargando perfil...</div>;
   }
-  if (!obtenerToken) {
+  try {
+    obtenerToken(); 
+  } catch {
     return <Navigate to="/login" />;
   }
+
   return (
     <FormularioPerfil perfil={perfil} modo="view" />
   );

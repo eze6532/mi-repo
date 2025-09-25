@@ -31,7 +31,7 @@ useEffect(() => {
   const rol = localStorage.getItem("rol");
   const storedId = localStorage.getItem("id");
 
-  if (token && (rol === 'ADMIN_ROL' || rol === 'USER_ROL') && storedId) {
+  if (token && (rol === 'ADMIN_ROLE' || rol === 'USER_ROLE') && storedId) {
     setIsLoggedIn(true);
     setUserRol(rol);
     setId(storedId);
@@ -81,4 +81,8 @@ export const useUsuario = () => {
   if (!context) throw new Error("useUsuario debe usarse dentro de UsuarioProvider");
   return context;
 };
-export const obtenerToken = () => localStorage.getItem("token");
+export const obtenerToken = () => {
+  const token= localStorage.getItem("token") 
+  if (!token) throw new Error("No estás logueado")
+  return token;  
+};

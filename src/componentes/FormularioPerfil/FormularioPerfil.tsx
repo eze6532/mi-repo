@@ -16,11 +16,6 @@ const FormularioPerfil: React.FC<FormularioPerfilProps> = ({ perfil, modo, onSub
   const [formData, setFormData] = useState<UsuarioPerfil>(perfil);
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    if (perfil) {
-      setFormData(perfil);
-    }
-  }, [perfil]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

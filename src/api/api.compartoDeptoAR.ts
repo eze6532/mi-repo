@@ -7,9 +7,8 @@ import axiosApi from "./_api";
 const api = {
     usuario: {
       
-        perfil: async(usuarioId: string):Promise<UsuarioPerfil>=>{
+        perfil: async():Promise<UsuarioPerfil>=>{
             const token= obtenerToken();
-            if (!token) throw new Error("No estás logueado");
             const result= await axiosApi.get<UsuarioPerfil>(
                 import.meta.env.VITE_URL_USER+"/perfil/",
                 {
@@ -18,8 +17,9 @@ const api = {
                 }
                 }
             )
+            console.log(result);
             if (result.status === 200) return result.data;
-            return undefined as unknown as UsuarioPerfil;
+            throw new Error("No se pudo obtener el perfil");
            
         },
         editarPerfil: async(usuarioId: string, nuevoPrefil:UsuarioPerfil):Promise<RespuestaPerfil>=>{
