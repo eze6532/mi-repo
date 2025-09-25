@@ -1,4 +1,6 @@
-export type Rol= {
-    ADMIN:'ADMIN_ROL',
-    USUARIO:'USER_ROL',
+export type Roles= "USER_ROLE"|"ADMI_ROLE"
+
+export interface Rol{
+    rol:[Roles];
 }
+

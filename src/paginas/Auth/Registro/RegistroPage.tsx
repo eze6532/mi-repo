@@ -8,6 +8,7 @@ import PrimerFormRegistro from "../../../componentes/FormularioRegistro/PrimerFo
 import apiAuth from "../../../api/api.auth";
 
 import '../../../styles/auth.css'
+import type { DatosRegistro } from "../../../modelos/Registro";
 
 const RegistroPage = ({ onSwitch }: { onSwitch: () => void }) => {
   // Primer formulario
@@ -39,22 +40,21 @@ const RegistroPage = ({ onSwitch }: { onSwitch: () => void }) => {
     e.preventDefault();
 
     try {
-      const data = await apiAuth.auth.registrar(
+      const datosRegistro: DatosRegistro = {
         nombreCompleto,
         correo,
         contraseña,
-        edad!,
+        edad,
         genero,
         descripcion,
         habitos,
         preferencia
-      );
+       };
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("rol", data.rol);
-      localStorage.setItem("id", data.id);
-      
-      navigate("/home");
+      const respuesta=await apiAuth.auth.registrar(datosRegistro);
+
+      console.log(respuesta.mensaje);
+      navigate("/auth");
     } catch (err: any) {
       console.error(err);
       alert(err.message);

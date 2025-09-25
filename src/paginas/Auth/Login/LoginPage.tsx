@@ -2,19 +2,26 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiAuth from "../../../api/api.auth";
 import'../../../styles/auth.css'
+import type { LoginDatos } from "../../../modelos/Login";
+import { useUsuario } from "../../../contexts/UsuarioContext";
 
 const LoginPage = ({ onSwitch }: { onSwitch: () => void }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login, loading } = useUsuario();
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContraseña] = useState("");
   const navigate = useNavigate();
 
+  if (loading) return <div>Cargando sesión...</div>;
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const data = await apiAuth.auth.login(email,password)
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.rol);
+      const data:LoginDatos = {
+        correo:correo,
+        contrasena:contrasena,
+      };
+      const respuesta = await apiAuth.auth.login(data);
+      login(respuesta);
 
       navigate("/home");
     } catch (err: any) {
@@ -27,25 +34,23 @@ const LoginPage = ({ onSwitch }: { onSwitch: () => void }) => {
   <form onSubmit={handleLogin} className="form-container page-transition">
     <h2 className="form-title">Iniciar sesión</h2>
 
-    {/* Email */}
     <div>
       <label>Email</label>
       <input
         type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        value={correo}
+        onChange={(e) => setCorreo(e.target.value)}
         placeholder="Email"
         required
       />
     </div>
 
-    {/* Contraseña */}
     <div>
       <label>Contraseña</label>
       <input
         type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={contrasena}
+        onChange={(e) => setContraseña(e.target.value)}
         placeholder="Contraseña"
         required
       />

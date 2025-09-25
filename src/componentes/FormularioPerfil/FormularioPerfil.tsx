@@ -3,22 +3,17 @@ import { opcionesHabitos, opcionesPreferencias, type UsuarioPerfil } from "../..
 import { useNavigate } from "react-router-dom";
 
 interface FormularioPerfilProps {
-  perfil: UsuarioPerfil;
+  perfil: UsuarioPerfil|null;
   modo: "view" | "editar"|"verOtro";
   onSubmit?: (usuario: UsuarioPerfil) => void;
 }
 
 const FormularioPerfil: React.FC<FormularioPerfilProps> = ({ perfil, modo, onSubmit }) => {
-  const perfilDefault: UsuarioPerfil = {
-    nombreCompleto: "",
-    edad: 0,
-    genero: "Prefiero no decir",
-    descripcion: "",
-    habitos: [],
-    preferencias: [],
-  };
+  if (!perfil) {
+   return <div>Ocurrió un error cargando el perfil.</div>; // en el futuro estaia bueno crear una plantilla para este caso
+  }
 
-  const [formData, setFormData] = useState<UsuarioPerfil>(perfil ?? perfilDefault);
+  const [formData, setFormData] = useState<UsuarioPerfil>(perfil);
   const navigate = useNavigate();
 
   React.useEffect(() => {

@@ -1,73 +1,40 @@
-import type { UsuarioPerfil } from "../../modelos/Usuario";
 import { useEffect } from "react";
 import FormularioPerfil from "../../componentes/FormularioPerfil/FormularioPerfil";
-import { useUsuario } from "../../contexts/UsuarioContext";
+import { obtenerToken, useUsuario } from "../../contexts/UsuarioContext";
+import api from "../../api/api.compartoDeptoAR";
+import { Navigate } from "react-router-dom";
 
 
-/*
-const PerfilView =()=>{
-
-    const [perfil, setPerfil] = useState<UsuarioPerfil>();
-
- 
- 
-    useEffect(() => {
-        /*
-        const fetchData = async () => {
-        try {
-            const data = await api.usuario.perfil(getUserId.arguments)
-            setPerfil(data);
-        } catch (error) {
-            console.error(error);
-        }};
-
-        fetchData();
-        *
-       const usuario1: UsuarioPerfil = {
-           nombreCompleto: "Usuario01",
-           edad: 19,
-           genero: "Masculino",
-           descripcion: "Hola mundo, soy el usuario01 y estoy muuuuuy feliz de estar aca y que me puedas leer, puto de mierda",
-           habitos: ["Cocino en casa","Fumador","Tengo mascotas"],
-           preferencias: ["No me molesta que fumen","Ok con horarios nocturnos","Prefiero alguien tranquilo"],
-       }
-       setPerfil(usuario1)
-    }, []);
-
-
-
-    return <>
-        { !perfil ?
-            <div>
-            Cargando...
-            </div>
-            :
-            <FormularioPerfil 
-                perfil={perfil} 
-                modo="view" />
-
-        }
-           </>
-            
-}
-*/
 const PerfilView = () => {
-  const { perfil, setPerfil } = useUsuario();
+  const { id ,perfil, setPerfil, setLoading, loading } = useUsuario();
+  
 
   useEffect(() => {
-    const usuario1: UsuarioPerfil = {
-      nombreCompleto: "Usuario01",
-      edad: 19,
-      genero: "Masculino",
-      descripcion: "Hola mundo, soy el usuario01 y estoy muuuuuy feliz de estar aca",
-      habitos: ["Cocino en casa", "Fumador", "Tengo mascotas"],
-      preferencias: ["No me molesta que fumen", "Ok con horarios nocturnos", "Prefiero alguien tranquilo"],
+    const cargarPerfil = async () => {
+      setLoading(true); 
+      if (!perfil && id) {
+        try {
+          
+          const datos = await api.usuario.perfil(id);
+          setPerfil(datos); 
+        } catch (err) {
+          console.error("Error al cargar el perfil:", err);
+        } finally {
+          setLoading(false);
+        }
+      } 
+        setLoading(false);
     };
-    setPerfil(usuario1);
+
+    cargarPerfil();
   }, []);
 
-  if (!perfil) return <div>Cargando...</div>;
-
+  if (loading) {
+    return <div>Cargando perfil...</div>;
+  }
+  if (!obtenerToken) {
+    return <Navigate to="/login" />;
+  }
   return (
     <FormularioPerfil perfil={perfil} modo="view" />
   );

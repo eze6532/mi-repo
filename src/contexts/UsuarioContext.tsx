@@ -1,57 +1,76 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import type {  LoginRespuesta } from "../modelos/Login";
 import type { UsuarioPerfil } from "../modelos/Usuario";
 
 type UsuarioContextType = {
-  perfil: UsuarioPerfil | null;
-  setPerfil: (perfil: UsuarioPerfil) => void;
+  id: string | null;
+  setId: (id: string) => void;
   isLoggedIn: boolean;
   userRol: string | null;
-  login: (perfil: UsuarioPerfil, rol: string) => void;
+  login: (loginRespuesta: LoginRespuesta) => void;
   logout: () => void;
+  perfil: UsuarioPerfil | null;
+  setPerfil: (perfil: UsuarioPerfil | null) => void;
+  loading:boolean;
+  setLoading:(b:boolean)=>void;
 };
+
 
 const UsuarioContext = createContext<UsuarioContextType | undefined>(undefined);
 
 export const UsuarioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [perfil, setPerfil] = useState<UsuarioPerfil | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [id, setId] = useState<string | null>(null);
   const [userRol, setUserRol] = useState<string | null>(null);
+  const [perfil, setPerfil] = useState<UsuarioPerfil | null>(null);
 
-  // Al iniciar la app, levantar datos de localStorage
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const rol = localStorage.getItem("rol");
-    const storedPerfil = localStorage.getItem("perfil");
+  const [loading, setLoading] = useState(true);
 
-    if (token && rol) {
-      setIsLoggedIn(true);
-      setUserRol(rol);
-      if (storedPerfil) setPerfil(JSON.parse(storedPerfil));
-    }
-  }, []);
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  const rol = localStorage.getItem("rol");
+  const storedId = localStorage.getItem("id");
 
-  const login = (perfil: UsuarioPerfil, rol: string) => {
-    setPerfil(perfil);
-    setUserRol(rol);
+  if (token && (rol === 'ADMIN_ROL' || rol === 'USER_ROL') && storedId) {
     setIsLoggedIn(true);
+    setUserRol(rol);
+    setId(storedId);
+  }
+   setLoading(false);
+}, []);
 
-    localStorage.setItem("token", "fake-token");
-    localStorage.setItem("rol", rol);
-    localStorage.setItem("perfil", JSON.stringify(perfil));
-  };
 
-  const logout = () => {
-    setPerfil(null);
-    setUserRol(null);
-    setIsLoggedIn(false);
+const login = (loginRespuesta: LoginRespuesta) => {
+  setUserRol(loginRespuesta.rol[0]);
+  setId(loginRespuesta.ID);
+  setIsLoggedIn(true);
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("rol");
-    localStorage.removeItem("perfil");
-  };
+  localStorage.setItem("token", loginRespuesta.token);
+  localStorage.setItem("rol", loginRespuesta.rol[0]);
+  localStorage.setItem("id", loginRespuesta.ID);
+};
+
+const logout = () => {
+  setId(null);
+  setUserRol(null);
+  setIsLoggedIn(false);
+
+  localStorage.clear();
+};
+
 
   return (
-    <UsuarioContext.Provider value={{ perfil, setPerfil, isLoggedIn, userRol, login, logout }}>
+    <UsuarioContext.Provider value={{ 
+        id, 
+        setId,
+        isLoggedIn, 
+        userRol, 
+        login, 
+        logout, 
+        perfil, 
+        setPerfil,
+        loading,
+        setLoading, }}>
       {children}
     </UsuarioContext.Provider>
   );
@@ -62,10 +81,4 @@ export const useUsuario = () => {
   if (!context) throw new Error("useUsuario debe usarse dentro de UsuarioProvider");
   return context;
 };
-
-
-/*
-export const getUserId = () => "0000001"
-export const getUserRol =()=>"USER_ROLE";
-export const isLoggedIn = () => "00000";
-*/
+export const obtenerToken = () => localStorage.getItem("token");

@@ -1,7 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomePage from "../paginas/Home/HomePage";
 import PerfilView from "../paginas/Perfil/PerfilView";
-import Publicacion from "../paginas/Publicacion/Publicacion";
 import CrearPublicacion from "../paginas/Publicacion/CrearPublicacion";
 import AdminPage from "../paginas/Admin/AdminPage";
 import { useUsuario } from "../contexts/UsuarioContext";
@@ -17,9 +15,8 @@ const ProtectedRouter = () => {
     <Routes>
       {userRol === "USER_ROLE" && (
         <>
-          <Route path="publicacion" element={<Publicacion />} />
-          <Route path="crear-publicacion" element={<CrearPublicacion />} />
-          <Route path="mi-perfil" element={<PerfilView />} />
+          <Route path="/crear-publicacion" element={<CrearPublicacion />} />
+          <Route path="/mi-perfil" element={<PerfilView />} />
         </>
       )}
 

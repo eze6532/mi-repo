@@ -19,6 +19,9 @@ export interface UsuarioPerfil {
   preferencias?: PreferenciaOpciones[];
 }
 
+export interface RespuestaPerfil{
+  mensaje: string;
+}
 
 export type PreferenciaOpciones =
       |"No me molesta que fumen"
